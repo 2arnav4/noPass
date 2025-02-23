@@ -25,15 +25,15 @@ const formSchema = z.object({
     .string()
     .min(16, { message: "Card number must be at least 16 digits" })
     .max(19, { message: "Card number cannot exceed 19 digits" })
-    .regex(/^[0-9\s-]*$/, {
-      message: "Card number can only contain numbers, spaces, or dashes",
+    .regex(/^(?:\d{4}[-\s]?){3}\d{4}$/, {
+      message: "Invalid card number format",
     }),
   cardName: z
     .string()
     .min(2, { message: "Name must be at least 2 characters" })
     .max(50, { message: "Name cannot exceed 50 characters" })
     .regex(/^[a-zA-Z\s-']*$/, {
-      message: "Name can only contain letters, spaces, hyphens and apostrophes",
+      message: "Name can only contain letters, spaces, hyphens, and apostrophes",
     }),
   expiryDate: z
     .string()
@@ -70,10 +70,10 @@ export function AddCard() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     if (user.user) {
-      addCardServer(
+      await addCardServer(
         values.cardNumber,
         values.expiryDate,
         parseInt(values.cvv),
@@ -103,7 +103,7 @@ export function AddCard() {
                     <Input placeholder="1234 5678 9012 3456" {...field} />
                   </FormControl>
                   <FormDescription>
-                    We'll never store your card number on our servers.
+                    We&apos;ll never store your card number on our servers.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
