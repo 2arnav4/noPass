@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -23,7 +22,7 @@ import {
 } from "@/components/ui/form";
 import { addPasswordServer } from "@/actions/actions";
 import { useUser } from "@clerk/nextjs";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({

@@ -6,10 +6,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
+
 // Interface for password properties
 interface Password {
   website: string;
-  username: string; // Name on the site
+  username: string;
   password: string;
 }
 
@@ -17,22 +18,21 @@ export function YourPasswords({ passwords }: { passwords: Password[] }) {
   return (
     <div className="space-y-4 h-44 overflow-y-auto">
       {passwords.length === 0 && (
-        <span className="text-muted-foreground">"No passwords added"</span>
+        <span className="text-muted-foreground">No passwords added</span>
       )}
 
       {passwords.map((password: Password) => (
-        <Card key={password.website} className="p-4 shadow-md">
-          <div>
-            <Link href={password.website} target="_blank">
-              <div className="font-semibold cursor-pointer text-blue-600">
-                {password.website}
-              </div>
-            </Link>
-          </div>
-
+        <Card key={`${password.website}-${password.username}`} className="p-4 shadow-md">
           <CardHeader>
             <CardTitle className="text-lg font-semibold">
-              {password.website}
+              <Link
+                href={password.website}
+                target="_blank"
+                className="text-blue-600 hover:underline"
+                aria-label={`Visit ${password.website}`}
+              >
+                {password.website}
+              </Link>
             </CardTitle>
             <CardDescription className="text-muted-foreground">
               Username: {password.username}
@@ -41,9 +41,9 @@ export function YourPasswords({ passwords }: { passwords: Password[] }) {
           <CardContent>
             <p className="text-sm text-muted-foreground">
               <strong>Password:</strong>{" "}
-              <span className="blur-sm hover:blur-none">
-                {password.password}
-              </span>
+              <span className="tracking-widest select-none">
+                •••••••••
+              </span> {/* Masked password for better security */}
             </p>
           </CardContent>
         </Card>

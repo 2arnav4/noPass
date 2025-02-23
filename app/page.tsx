@@ -4,7 +4,7 @@ import { YourCards } from "@/components/your-cards";
 import { YourPasswords } from "@/components/your-passwords";
 import type { Metadata } from "next";
 import React from "react";
-import { clerkClient } from "@clerk/nextjs/server";
+
 import { currentUser } from "@clerk/nextjs/server";
 
 export const metadata: Metadata = {
@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const user = await currentUser()
-  console.log(user?.privateMetadata.cards)
+  const user = await currentUser();
+  console.log(user?.privateMetadata.cards);
   return (
     <div className="container mx-auto p-4 space-y-8">
       <h1 className="text-4xl font-bold text-center mb-8">Password Manager</h1>
@@ -31,11 +31,23 @@ export default async function Home() {
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-4">
           <h1 className="text-2xl font-bold text-primary">Your Cards</h1>
-          <YourCards cards={Array.isArray(user?.privateMetadata.cards)?user?.privateMetadata.cards: [] } />
+          <YourCards
+            cards={
+              Array.isArray(user?.privateMetadata.cards)
+                ? user?.privateMetadata.cards
+                : []
+            }
+          />
         </div>
         <div className="space-y-4">
           <h1 className="text-2xl font-bold text-primary">Your Passwords</h1>
-          <YourPasswords passwords = {Array.isArray(user?.privateMetadata.passwords)?user?.privateMetadata.passwords: []} />
+          <YourPasswords
+            passwords={
+              Array.isArray(user?.privateMetadata.passwords)
+                ? user?.privateMetadata.passwords
+                : []
+            }
+          />
         </div>
       </div>
     </div>

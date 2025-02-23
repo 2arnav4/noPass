@@ -2,13 +2,7 @@
 import type React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,10 +17,8 @@ import {
 } from "@/components/ui/form";
 import { addCardServer } from "@/actions/actions";
 import { useUser } from "@clerk/nextjs";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-
-
 
 const formSchema = z.object({
   cardNumber: z
@@ -86,7 +78,7 @@ export function AddCard() {
         values.expiryDate,
         parseInt(values.cvv),
         user?.user?.id
-      )
+      );
       toast.success("Card added successfully");
       form.reset();
       router.refresh();
@@ -145,9 +137,7 @@ export function AddCard() {
                     <FormControl>
                       <Input placeholder="MM/YY" {...field} />
                     </FormControl>
-                    <FormDescription>
-                      The expiry date.
-                    </FormDescription>
+                    <FormDescription>The expiry date.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
